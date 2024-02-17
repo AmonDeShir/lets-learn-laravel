@@ -6,7 +6,7 @@ services:
         container_name: web
         working_dir: /app
         volumes:
-            - ./docker/nginx/config.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/development/nginx/config.conf:/etc/nginx/conf.d/default.conf
             - .:/app
         networks:
             - app-net
@@ -22,7 +22,7 @@ services:
             - .:/app
         build:
             context: .
-            dockerfile: ./docker/php/Dockerfile
+            dockerfile: ./docker/development/php/Dockerfile
         networks:
             - app-net
         depends_on:
@@ -67,7 +67,7 @@ services:
     node:
         build:
             context: .
-            dockerfile: ./docker/node/Dockerfile
+            dockerfile: ./docker/development/node/Dockerfile
         container_name: node
         working_dir: /app
         tty: true
