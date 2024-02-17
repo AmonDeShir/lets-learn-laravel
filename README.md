@@ -1,4 +1,4 @@
-## Instrukcja uruchomienia projektu
+## Instrukcja uruchomienia projektu (środowisko developerskie)
 
 ### Kroki do uruchomienia projektu
 Aby uruchomić projekt, postępuj zgodnie z poniższymi krokami:
