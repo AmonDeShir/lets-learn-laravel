@@ -54,6 +54,14 @@ Aby uruchomić serwer Vite, wykonaj następujące kroki:
     ```
 3. Po zakończeniu procesu uruchamiania, serwer będzie dostępny pod adresem [http://localhost:5173/](http://localhost:5173/).
 
+### Uruchomienie Code style fixer'a dla PHP:
+1. Otwórz terminal.
+2. Uruchom poniższe komendy:
+    ```bash
+    docker compose exec -it php composer cs
+    ```
+3. W konsoli zobaczysz teraz wszystkie fragmenty kodu które według CS Fixer'a można napisać lepiej. Możesz użyć komendy `csf` zamiast `cs` aby zastosować zaproponowane poprawki.
+
 ## Opis pliku docker-compose.yml
 Plik docker-compose składa się z pięciu usług (web, php, database, redis, node), oraz z konfiguracji woluminów przechowujących dane bazy i Redis oraz jednej wspólnej sieci dla całego środowiska.
 
