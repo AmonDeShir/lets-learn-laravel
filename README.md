@@ -17,10 +17,11 @@ Aby uruchomić projekt, postępuj zgodnie z poniższymi krokami:
     ```bash
     cp .env.example .env
     ```
-6. Jeżeli używasz Linux'a, dodaj do .env zmienną DOCKER_USER, w której będzie przechowywane id użytkownika i grupy. Unikniesz dzięki temu problemów z brakiem praw edycji do plików wygenerowanych przez artisan'a lub npm.
+6. Jeżeli używasz Linux'a, upewnij się że zmienna `DOCKER_USER` w .env zawiera poprawne id użytkownika i jego grupy. Unikniesz dzięki temu problemów z brakiem praw edycji do plików wygenerowanych przez artisan'a lub npm. Wartość `DOCKER_USER` powinna być równa wynikowi tej komendy:
     ```bash
-    echo "DOCKER_USER=$(id -u):$(id -g)" >> .env
+    echo "$(id -u):$(id -g)"
     ```
+    Jeżeli korzystasz z dokera dla Windowsa z WSL, pomiń ten krok, wartości 1000:1000 są dla ciebie poprawne.
 
 7. Uruchom projekt przy użyciu komendy:
     ```bash
@@ -65,7 +66,7 @@ Aby uruchomić serwer Vite, wykonaj następujące kroki:
     ```bash
     docker compose exec -it php composer cs
     ```
-3. W konsoli zobaczysz teraz wszystkie fragmenty kodu które według CS Fixer'a można napisać lepiej. Możesz użyć komendy `csf` zamiast `cs` aby zastosować zaproponowane poprawki.
+3. W konsoli zobaczysz teraz wszystkie fragmenty kodu, które według CS Fixer'a można napisać lepiej. Możesz użyć komendy `csf` zamiast `cs` aby zastosować zaproponowane poprawki.
 
 ## Opis pliku docker-compose.yml
 Plik docker-compose składa się z pięciu usług (web, php, database, redis, node), oraz z konfiguracji woluminów przechowujących dane bazy i Redis oraz jednej wspólnej sieci dla całego środowiska.
