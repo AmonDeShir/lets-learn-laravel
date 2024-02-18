@@ -17,7 +17,7 @@ Aby uruchomić projekt, postępuj zgodnie z poniższymi krokami:
     ```bash
     cp .env.example .env
     ```
-6. Jeżeli używasz Linux'a, upewnij się że zmienna `DOCKER_USER` w .env zawiera poprawne id użytkownika i jego grupy. Unikniesz dzięki temu problemów z brakiem praw edycji do plików wygenerowanych przez artisan'a lub npm. Wartość `DOCKER_USER` powinna być równa wynikowi tej komendy:
+6. Jeżeli używasz Linux'a, upewnij się że zmienna `DOCKER_USER` w .env zawiera poprawne id użytkownika i jego grupy. Unikniesz dzięki temu problemów związanych z brakiem praw do edycji plików wygenerowanych przez artisan lub npm. Wartość `DOCKER_USER` powinna być równa wynikowi tej komendy:
     ```bash
     echo "$(id -u):$(id -g)"
     ```
