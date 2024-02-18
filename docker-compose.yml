@@ -23,6 +23,7 @@ services:
         build:
             context: .
             dockerfile: ./docker/development/php/Dockerfile
+        user: $DOCKER_USER
         networks:
             - app-net
         depends_on:
@@ -69,6 +70,7 @@ services:
             context: .
             dockerfile: ./docker/development/node/Dockerfile
         container_name: node
+        user: $DOCKER_USER
         working_dir: /app
         tty: true
         ports:

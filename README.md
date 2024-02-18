@@ -17,11 +17,16 @@ Aby uruchomić projekt, postępuj zgodnie z poniższymi krokami:
     ```bash
     cp .env.example .env
     ```
-6. Uruchom projekt przy użyciu komendy:
+6. Jeżeli używasz Linux'a, dodaj do .env zmienną DOCKER_USER, w której będzie przechowywane id użytkownika i grupy. Unikniesz dzięki temu problemów z brakiem praw edycji do plików wygenerowanych przez artisan'a lub npm.
+    ```bash
+    echo "DOCKER_USER=$(id -u):$(id -g)" >> .env
+    ```
+
+7. Uruchom projekt przy użyciu komendy:
     ```bash
     docker compose up -d
     ```
-7. Po zakończeniu procesu uruchamiania, projekt będzie dostępny pod adresem [http://localhost](http://localhost).
+8. Po zakończeniu procesu uruchamiania, projekt będzie dostępny pod adresem [http://localhost](http://localhost).
 
 ### Dostęp do konsoli PHP w kontenerze
 Aby uzyskać dostęp do konsoli PHP wewnątrz kontenera, wykonaj następujące kroki:
