@@ -4,25 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Idea;
+
 class DashboardController extends Controller
 {
     public function index()
     {
-        $users = [
-            [
-                "name" => "Alex",
-                "age" => 30,
-            ],
-            [
-                "name" => "Amon",
-                "age" => 23,
-            ],
-            [
-                "name" => "John",
-                "age" => 15,
-            ],
-        ];
-
-        return view("dashboard", ["users" => $users]);
+        return view("dashboard", ["ideas" => Idea::orderBy("created_at", "DESC")->paginate(5)]);
     }
 }
