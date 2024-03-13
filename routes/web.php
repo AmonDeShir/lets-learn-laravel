@@ -23,19 +23,8 @@ Route::get("/", [DashboardController::class, "index"])->name("dashboard");
 Route::get("/search", [DashboardController::class, "search"])->name("dashboard.search");
 Route::get("/profile", [ProfileController::class, "index"]);
 
-Route::group(["prefix" => "ideas", "as" => "ideas.", "middleware" => ["auth"]], function (): void {
-    Route::get("/{idea}", [IdeaController::class, "show"])->name("show")->withoutMiddleware(["auth"]);
+Route::resource("ideas", IdeaController::class)->except(["index", "create", "show"])->middleware("auth");
+Route::resource("ideas", IdeaController::class)->only(["show"]);
 
-    Route::post("/", [IdeaController::class, "store"])->name("store");
-    Route::get("/{idea}/edit", [IdeaController::class, "edit"])->name("edit");
-    Route::put("/{idea}", [IdeaController::class, "update"])->name("update");
-    Route::delete("/{idea}", [IdeaController::class, "destroy"])->name("destroy");
-    Route::post("/{idea}/comments", [CommentController::class, "store"])->name("comments.store");
-});
-
-Route::group(["prefix" => "comments", "as" => "comments.", "middleware" => ["auth"]], function (): void {
-    Route::get("/{comment}", [CommentController::class, "show"])->name("show")->withoutMiddleware(["auth"]);
-    Route::get("/{comment}/edit", [CommentController::class, "edit"])->name("edit");
-    Route::put("/{comment}", [CommentController::class, "update"])->name("update");
-    Route::delete("/{comment}", [CommentController::class, "destroy"])->name("destroy");
-});
+Route::resource("ideas.comments", CommentController::class)->shallow()->except(["index", "create", "show"])->middleware("auth");
+Route::resource("ideas.comments", CommentController::class)->shallow()->only(["show"]);
