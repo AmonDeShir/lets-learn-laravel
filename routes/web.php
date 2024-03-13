@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
@@ -34,3 +35,7 @@ Route::get("/comments/{comment}", [CommentController::class, "show"])->name("com
 Route::get("/comments/{comment}/edit", [CommentController::class, "edit"])->name("comments.edit");
 Route::put("/comments/{comment}", [CommentController::class, "update"])->name("comments.update");
 Route::delete("/comments/{comment}", [CommentController::class, "destroy"])->name("comments.destroy");
+
+Route::get("/register", [AuthController::class, "register"])->name("register");
+Route::post("/register", [AuthController::class, "store"]);
+Route::get("/login", [AuthController::class, "login"])->name("login");
