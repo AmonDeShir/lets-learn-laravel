@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
@@ -22,22 +21,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", [DashboardController::class, "index"])->name("dashboard");
 Route::get("/search", [DashboardController::class, "search"])->name("dashboard.search");
-Route::get("profile", [ProfileController::class, "index"]);
+Route::get("/profile", [ProfileController::class, "index"]);
 
-Route::get("/ideas/{idea}", [IdeaController::class, "show"])->name("ideas.show");
-Route::post("/ideas", [IdeaController::class, "store"])->name("ideas.store")->middleware("auth");
-Route::get("/ideas/{idea}/edit", [IdeaController::class, "edit"])->name("ideas.edit")->middleware("auth");
-Route::put("/ideas/{idea}", [IdeaController::class, "update"])->name("ideas.update")->middleware("auth");
-Route::delete("/ideas/{idea}", [IdeaController::class, "destroy"])->name("ideas.destroy")->middleware("auth");
+Route::group(["prefix" => "ideas", "as" => "ideas.", "middleware" => ["auth"]], function (): void {
+    Route::get("/{idea}", [IdeaController::class, "show"])->name("show")->withoutMiddleware(["auth"]);
 
-Route::post("/ideas/{idea}/comments", [CommentController::class, "store"])->name("ideas.comments.store")->middleware("auth");
-Route::get("/comments/{comment}", [CommentController::class, "show"])->name("comments.show");
-Route::get("/comments/{comment}/edit", [CommentController::class, "edit"])->name("comments.edit")->middleware("auth");
-Route::put("/comments/{comment}", [CommentController::class, "update"])->name("comments.update")->middleware("auth");
-Route::delete("/comments/{comment}", [CommentController::class, "destroy"])->name("comments.destroy")->middleware("auth");
+    Route::post("/", [IdeaController::class, "store"])->name("store");
+    Route::get("/{idea}/edit", [IdeaController::class, "edit"])->name("edit");
+    Route::put("/{idea}", [IdeaController::class, "update"])->name("update");
+    Route::delete("/{idea}", [IdeaController::class, "destroy"])->name("destroy");
+    Route::post("/{idea}/comments", [CommentController::class, "store"])->name("comments.store");
+});
 
-Route::get("/register", [AuthController::class, "register"])->name("register");
-Route::post("/register", [AuthController::class, "store"]);
-Route::get("/login", [AuthController::class, "login"])->name("login");
-Route::post("/login", [AuthController::class, "authenticate"]);
-Route::post("/logout", [AuthController::class, "logout"])->name("logout");
+Route::group(["prefix" => "comments", "as" => "comments.", "middleware" => ["auth"]], function (): void {
+    Route::get("/{comment}", [CommentController::class, "show"])->name("show")->withoutMiddleware(["auth"]);
+    Route::get("/{comment}/edit", [CommentController::class, "edit"])->name("edit");
+    Route::put("/{comment}", [CommentController::class, "update"])->name("update");
+    Route::delete("/{comment}", [CommentController::class, "destroy"])->name("destroy");
+});
