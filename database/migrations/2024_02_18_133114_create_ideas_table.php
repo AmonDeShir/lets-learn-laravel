@@ -11,6 +11,7 @@ return new class() extends Migration {
     {
         Schema::create("ideas", function (Blueprint $table): void {
             $table->id();
+            $table->foreignId("user_id")->constrained()->cascadeOnDelete();
             $table->string("content", 240);
             $table->unsignedInteger("likes")->default(0);
             $table->timestamps();

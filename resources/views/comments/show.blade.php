@@ -12,24 +12,26 @@
                     <div class="px-3 pt-4 pb-2">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
-                                <img style="width:35px" class="me-2 avatar-sm rounded-circle" src="https://api.dicebear.com/6.x/fun-emoji/svg?seed=Luigi" alt="Luigi Avatar">
+                                <img style="width:35px" class="me-2 avatar-sm rounded-circle" src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $comment->user->name }}" alt="{{ $comment->user->name }} Avatar">
                                 <div>
                                     <h5 class="card-title mb-0">
-                                        <a href="#"> Luigi </a>
+                                        <a href="#"> {{ $comment->user->name }} </a>
                                     </h5>
                                 </div>
                             </div>
 
-                            <div>
-                                <form method="POST" action={{ route('comments.destroy', $comment->id) }}>
-                                    <a class="mx-2" href={{ route("comments.edit", $comment->id) }}>Edit</a>
-                                    <a href={{ route("comments.show", $comment->id) }}>Show</a>
+                            @if (auth()->id() === $comment->user_id)
+                                <div>
+                                    <form method="POST" action={{ route('comments.destroy', $comment->id) }}>
+                                        <a class="mx-2" href={{ route("comments.edit", $comment->id) }}>Edit</a>
+                                        <a href={{ route("comments.show", $comment->id) }}>Show</a>
 
-                                    @csrf
-                                    @method('delete')
-                                    <button class="ms-1 btn btn-danger btn-sm">X</button>
-                                </form>
-                            </div>
+                                        @csrf
+                                        @method('delete')
+                                        <button class="ms-1 btn btn-danger btn-sm">X</button>
+                                    </form>
+                                </div>
+                            @endif
                         </div>
                     </div>
 

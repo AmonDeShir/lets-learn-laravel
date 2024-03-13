@@ -16,6 +16,7 @@ class IdeaController extends Controller
         ]);
 
         $idea = new Idea($validated);
+        $idea->user_id = auth()->id();
         $idea->likes = 0;
         $idea->save();
 
@@ -31,11 +32,19 @@ class IdeaController extends Controller
     {
         $editing = true;
 
+        if (auth()->id() !== $idea->user_id) {
+            abort(403, "");
+        }
+
         return view("ideas.show", compact("idea", "editing"));
     }
 
     public function update(Idea $idea, Request $request)
     {
+        if (auth()->id() !== $idea->user_id) {
+            abort(403, "");
+        }
+
         $validated = $request->validate([
             "content" => "required|min:3|max:240",
         ]);
@@ -47,6 +56,10 @@ class IdeaController extends Controller
 
     public function destroy(Idea $idea)
     {
+        if (auth()->id() !== $idea->user_id) {
+            abort(403, "");
+        }
+
         $idea->delete();
 
         return redirect()->route("dashboard")->with("success", "Idea removed successfully");

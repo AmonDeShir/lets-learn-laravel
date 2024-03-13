@@ -22,6 +22,7 @@ class CommentController extends Controller
         ]);
 
         $comment = new Comment($validated);
+        $comment->user_id = auth()->id();
         $comment->idea_id = $idea->id;
         $comment->save();
 
@@ -37,6 +38,10 @@ class CommentController extends Controller
     {
         $editing = true;
 
+        if (auth()->id() !== $comment->user_id) {
+            abort(403, "");
+        }
+
         return view("comments.show", compact("comment", "editing"));
     }
 
@@ -46,6 +51,10 @@ class CommentController extends Controller
             "content" => "required|min:3|max:250",
         ]);
 
+        if (auth()->id() !== $comment->user_id) {
+            abort(403, "");
+        }
+
         $comment->update($validated);
 
         return redirect()->route("ideas.show", $comment->idea_id)->with("success", "Comment updated successfully");
@@ -53,6 +62,10 @@ class CommentController extends Controller
 
     public function destroy(Comment $comment)
     {
+        if (auth()->id() !== $comment->user_id) {
+            abort(403, "");
+        }
+
         $comment->delete();
 
         return redirect()->route("ideas.show", $comment->idea_id)->with("success", "Comment removed successfully");
