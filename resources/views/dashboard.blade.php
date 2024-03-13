@@ -9,12 +9,14 @@
             @include("shared._success-message")
             @include("shared._submit-idea")
             <hr>
-            @foreach ($ideas as $idea)
+            @forelse ($ideas as $idea)
                 @include("shared._idea-card")
-            @endforeach
+            @empty
+                WOW! Such empty :(
+            @endforelse
 
             <div class="mt-3">
-                {{ $ideas->links() }}
+                {{ $ideas->withQueryString()->links() }}
             </div>
         </div>
         <div class="col-3">
