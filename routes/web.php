@@ -30,3 +30,7 @@ Route::put("/ideas/{idea}", [IdeaController::class, "update"])->name("ideas.upda
 Route::delete("/ideas/{idea}", [IdeaController::class, "destroy"])->name("ideas.destroy");
 
 Route::post("/ideas/{idea}/comments", [CommentController::class, "store"])->name("ideas.comments.store");
+Route::get("/comments/{comment}", [CommentController::class, "show"])->name("comments.show");
+Route::get("/comments/{comment}/edit", [CommentController::class, "edit"])->name("comments.edit");
+Route::put("/comments/{comment}", [CommentController::class, "update"])->name("comments.update");
+Route::delete("/comments/{comment}", [CommentController::class, "destroy"])->name("comments.destroy");

@@ -11,14 +11,12 @@ class IdeaController extends Controller
 {
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             "content" => "required|min:3|max:240",
         ]);
 
-        $idea = new Idea([
-            "content" => $request->input("content", ""),
-        ]);
-
+        $idea = new Idea($validated);
+        $idea->likes = 0;
         $idea->save();
 
         return redirect()->route("dashboard")->with("success", "Idea created successfully");
@@ -38,13 +36,11 @@ class IdeaController extends Controller
 
     public function update(Idea $idea, Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             "content" => "required|min:3|max:240",
         ]);
 
-        $idea->update([
-            "content" => $request->input("content", ""),
-        ]);
+        $idea->update($validated);
 
         return redirect()->route("ideas.show", compact("idea"))->with("success", "Idea updated successfully");
     }

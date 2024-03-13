@@ -17,7 +17,7 @@ class Idea extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "content", "like",
+        "content",
     ];
 
     public function comments()
