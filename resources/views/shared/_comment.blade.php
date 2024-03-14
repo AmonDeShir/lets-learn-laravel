@@ -1,11 +1,9 @@
 <div>
     <div class="d-flex align-items-start">
-        <img style="width:35px" class="me-2 avatar-sm rounded-circle"
-            src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $comment->user->name }}"
-            alt="{{ $comment->user->name }} Avatar">
+        <img style="width:35px" class="me-2 avatar-sm rounded-circle" src="{{$comment->user->getImageURL()}}" alt="{{ $comment->user->name }} Avatar">
         <div class="w-100">
             <div class="d-flex justify-content-between">
-                <h6 class="">{{ $comment->user->name }}</h6>
+                <a href="{{ route('users.show', $comment->user_id)}}"><h6 class="">{{ $comment->user->name }}</h6></a>
 
                 <div class="d-flex flex-column align-items-end">
                     <small class="fs-6 fw-light text-muted">

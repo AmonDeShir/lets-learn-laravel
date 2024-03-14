@@ -12,10 +12,10 @@
                     <div class="px-3 pt-4 pb-2">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center">
-                                <img style="width:35px" class="me-2 avatar-sm rounded-circle" src="https://api.dicebear.com/6.x/fun-emoji/svg?seed={{ $comment->user->name }}" alt="{{ $comment->user->name }} Avatar">
+                                <img style="width:35px" class="me-2 avatar-sm rounded-circle" src="{{$user->getImageURL()}}" alt="{{ $comment->user->name }} Avatar">
                                 <div>
                                     <h5 class="card-title mb-0">
-                                        <a href="#"> {{ $comment->user->name }} </a>
+                                        <a href="{{ route('users.show', $comment->user_id)}}"> {{ $comment->user->name }} </a>
                                     </h5>
                                 </div>
                             </div>
